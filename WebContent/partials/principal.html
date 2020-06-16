@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="pt" ng-app="solservApp">
+
+<head> 
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <base href="/solicitacoes/">
+
+    <title>Solicitações de Serviços</title>
+	
+	<!-- jQuery JS -->
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    
+     <!-- Biblioteca propria -->
+    <script src="js/util.js"></script>
+    
+    <!-- AngularJS -->
+    <script src="js/libs/angular.min.js"></script>
+	<script src="js/libs/angular-route.min.js"></script>
+	<script src="js/libs/angular-resource.min.js"></script>
+	<script src="js/libs/angular-cookies.min.js"></script>
+	<script src="js/libs/mask.min.js"></script>
+	<script src="js/libs/angular-datatables.min.js"></script>
+	<script src="js/libs/angular-media-preview.min.js"></script>
+	<script src="js/libs/angular-utf8-base64.min.js"></script>
+
+	
+	<!-- Bibliotecas AngulasJS da aplicacao -->
+	<script src="js/app.js"></script>
+	<script src="js/services.js"></script>
+	<script src="js/segServices.js"></script>
+	<script src="js/controllers.js"></script>
+	<script src="js/solicitacaoControllers.js"></script>
+	<script src="js/prioridadeControllers.js"></script>
+	<script src="js/situacaoControllers.js"></script>
+	<script src="js/objetoControllers.js"></script>
+	<script src="js/papelControllers.js"></script>
+	<script src="js/usuarioControllers.js"></script>
+	<script src="js/diretivas.js"></script>
+	<script src="js/relatoriosControllers.js"></script>
+	
+	<!-- CSS Local -->
+    <link href="css/local.css" rel="stylesheet">
+    
+    <!-- Bootstrap Core CSS -->
+    <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link href="bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
+
+    <!-- Timeline CSS -->
+    <link href="dist/css/timeline.css" rel="stylesheet">
+    
+     <!-- DataTables CSS -->
+    <link href="bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="dist/css/sb-admin-2.css" rel="stylesheet">
+
+    <!-- Morris Charts CSS --> 
+    <link href="bower_components/morrisjs/morris.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	
+</head>
+
+<body ng-controller="PrincipalCtrl">
+    <div id="wrapper"> 
+
+        <!-- Navigation -->
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+        	<div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <div class="navbar-brand">
+	           		<img src="img/LogoAudivisa_Min.jpg" 
+	           			class="img-circle" 
+	           			style="margin-top:-14px;"/>
+                </div>
+                <div class="navbar-brand">
+                	Solicita&#231;&#245;es de Servi&#231;os
+                </div>
+            </div>
+            <!-- /.navbar-header -->
+
+            <ul class="nav navbar-top-links navbar-right">
+                
+                <!-- tarefas -->
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    	<i class="fa fa-tasks fa-fw"></i>
+                    	<i class="fa fa-caret-down"></i>
+                    	<span class="badge">{{quantTarefas}}</span>
+                        
+                    </a>
+                    <ul class="dropdown-menu dropdown-tasks">
+                        <li ng-repeat="tarefa in listaTarefas">
+                            <a href="" ng-click="editar(tarefa.id)">
+                                <div class="list-group">
+                                	<h6 class="list-group-item-heading"><strong>{{tarefa.dataHoraAtender}} - {{tarefa.cliente}}</strong></h6>
+                                    <p class="list-group-item-text"><h6>{{tarefa.solicitacao}}</h6></p>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-tasks -->
+                </li>
+               
+                <!-- usuario -->
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    	<div>
+	                        <img ng-src="/solicitacoes/services/colaborador/foto/{{cid}}" class="img-circle" style="widht:25px; height:25px;"></img>  
+	                        <i class="fa fa-caret-down"></i>
+                        </div>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                    	
+                    		<div class="well well-sm">
+  								<h4>{{un}}</h4>
+  								<p>
+  								</p>
+							</div>
+                        
+                        <li>
+                        	<a href="#/novaSenha"><i class="fa fa-lock fa-fw"></i> Alterar senha</a>
+                        </li>
+                        <li>
+                        	<a href="#" ng-click="logout()">
+                        		<i class="fa fa-sign-out fa-fw"></i> Sair
+                        	</a>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-user -->
+                </li>
+
+            </ul>
+            <!-- /.navbar-top-links -->
+
+			<!-- Menu Geral -->
+            <div class="navbar-default sidebar" role="navigation">
+                <div class="sidebar-nav navbar-collapse">
+                    <ul class="nav" id="side-menu">
+                        <li sentinela="dashBoard">
+                            <a href="#/dash"><i class="fa fa-bar-chart-o fa-fw"></i> Dashboard</a>
+                        </li>
+                        <li sentinela="solicitacao.lista">
+                            <a href="#/solicitacoes"><i class="fa fa-tasks fa-fw"></i> Solicita&#231;&#245;es</a>
+                        </li>
+                        <li sentinela="cliente.lista">
+                        	<a href="#/clientes"><i class="fa fa-user fa-fw"></i> Clientes</a>
+                        </li>
+                        <li sentinela="colaborador.lista">
+                            <a href="#/colaboradores"><i class="fa fa-user fa-fw"></i> Colaboradores</a>
+                        </li>
+                        <li sentinela="relatorios">
+                            <a href="#" data-toggle="collapse" data-target="#smRel">
+                            	<i class="fa fa-book fa-fw"></i> Relat&#243;rios
+                            	<span class="fa arrow"></span>
+                            </a>
+                            <ul class="nav nav-second-level collapse" id="smRel">
+                                <li sentinela="relatorio.solic.cliente">
+                                    <a href="#/rel-solicitacao-cliente"><i class="fa fa-book fa-fw"></i> Solicita&#231;&#245;es / cliente</a>
+                                </li>
+                                <li sentinela="relatorio.solic.colaborador">
+                                    <a href="#/rel-solicitacao-colaborador"><i class="fa fa-book fa-fw"></i> Solicita&#231;&#245;es / colaborador</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        
+                        <li sentinela="cad.basicos">
+                            <a href="#" data-toggle="collapse" data-target="#smBasico">
+                            	<i class="fa fa-archive fa-fw"></i> Cadastros B&#225;sicos
+                            	<span class="fa arrow"></span>
+                            </a>
+                            <ul class="nav nav-second-level collapse" id="smBasico">
+                                <li sentinela="cad.basicos.prioridade.lista">
+                                    <a href="#/prioridades"><i class="fa fa-check-square-o fa-fw"></i> Prioridades</a>
+                                </li>
+                                <li sentinela="cad.basicos.situacao.lista">
+                                    <a href="#/situacoes"><i class="fa fa-check-square-o fa-fw"></i> Situa&#231;&#245;es</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        
+                        <li sentinela="seguranca">
+                            <a href="#" data-toggle="collapse" data-target="#smSeg">
+                            	<i class="fa fa-lock fa-fw"></i> Seguran&#231;a
+                            	<span class="fa arrow"></span>
+                            </a>
+                            <ul class="nav nav-second-level collapse" id="smSeg" >
+                                <li sentinela="seguranca.usuario.lista">
+                                    <a href="#/usuarios"><i class="fa fa-user fa-fw"></i> Usu&#225;rios</a>
+                                </li>
+                                <li sentinela="seguranca.papel.lista">
+                                    <a href="#/papeis"><i class="fa fa-users fa-fw"></i> Papeis e Permiss&#245;es</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.sidebar-collapse -->
+            </div>
+            <!-- /.navbar-static-side -->
+        </nav>
+
+        <div id="page-wrapper">
+        	<div class="container-fluid">
+        		<div class="row">
+        			<ng-view>
+        			</ng-view>
+	        	</div>
+        	</div>
+        </div>
+        <!-- /#page-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+     
+    <div ng-include="'partials/loading.html'">
+    </div>
+    
+    <!-- Bootstrap Core JavaScript -->
+    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="bower_components/metisMenu/dist/metisMenu.min.js"></script>
+
+    <!-- DataTables JavaScript -->
+    <script src="bower_components/datatables/media/js/jquery.dataTables.js"></script>
+    <script src="bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="dist/js/sb-admin-2.js"></script>
+    
+    <!-- Morris Charts JavaScript -->
+    <script src="bower_components/raphael/raphael-min.js"></script>
+    <script src="bower_components/morrisjs/morris.min.js"></script>
+
+</body>
+
+</html>

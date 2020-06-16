@@ -1,0 +1,81 @@
+<div class="row">
+	<div class="col-lg-8">
+		<br>
+		<div class="panel panel-default">
+
+			<div class="panel-heading">
+				<strong>Prioridade</strong>
+			</div>
+			<!-- /.panel-heading -->
+
+			<div class="panel-body">
+
+				<form name="prioridadeForm" novalidate>
+					<!-- Mensagens de erro -->
+					<div ng-show="temErro" class="alert alert-danger">
+						<span>{{mensagem}}</span>
+					</div>
+					
+					<!-- Mensagens de sucesso -->
+					<div ng-show="sucesso" class="alert alert-success">
+						<span>Opera&#231;&#227;o realizada com sucesso.</span>
+					</div>
+
+					<!-- Tab panes -->
+					<div class="tab-content">
+					
+						<!-- Primeira coluna -->
+						<div class="col-lg-12">
+							
+							<!-- Primeira linha -->
+							<div class="row">
+								<div class="col-lg-12">
+									<div class="form-group">
+										<label>Descri&#231;&#227;o</label> 
+										<input name="descricao" 
+											id="field_descricao"
+											type="text"
+											ng-model="prioridade.descricao"
+											ng-disabled="desabilitar"
+											class="form-control"
+											maxlength="50"
+											required>
+									</div>
+								</div>
+							</div>
+							
+							<!-- Segunda linha -->
+							<div class="row">
+								<div class="col-lg-4">
+									<div class="form-group">
+										<label>Nivel</label> 
+										<select name="nivel"
+											id="field_nivel"
+											ng-model="prioridade.nivel"
+											ng-disabled="desabilitar"
+											class="form-control"
+											required>
+											<option value=""></option>
+											<option ng-repeat="niv in listaNiveis" value="{{niv.id}}">{{niv.descricao}}</option>
+										</select>
+									</div>
+								</div>
+								
+							</div>
+						</div>
+						
+						<!-- Botoes do CRUD Cliente -->
+						<div class="col-lg-12">
+							<button type="button" class="btn btn-success" ng-click="salvar(false)" ng-disabled="desabilitar">Salvar</button>
+							<button type="button" class="btn btn-primary" ng-click="salvar(true)" ng-disabled="desabilitar">Salvar e retornar para lista</button>
+							<button type="button" class="btn btn-default" ng-click="retornar()">Retornar</button>
+						</div>
+					</div>
+				</form>
+			</div>
+			<!-- /.panel-body -->
+		</div>
+		<!-- /.panel -->
+	</div>
+	<!-- /.col-lg-12 -->
+</div>

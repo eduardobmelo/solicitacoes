@@ -1,0 +1,189 @@
+	<div class="row">
+		<div class="col-lg-12">
+			<div ng-include="'partials/loading.html'">
+    		</div>
+			<br>
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<strong>Lista de Solicita&#231;&#245;es</strong>
+				</div>
+
+				<div class="panel-body">
+					
+					<!-- Mensagens de sucesso -->
+					<div ng-show="sucesso" class="alert alert-success">
+						<span>Opera&#231;&#227;o realizada com sucesso.</span>
+					</div>
+				
+					<!-- Filtros -->
+					<div class="row">
+						<div class="col-lg-12">
+							<div class="panel panel-default">
+								<div class="panel-body">
+									<form name="filtrosSolicForm" novalidate>
+										<!-- Primeira linha -->
+										<div class="row">
+											<div class="col-lg-2">
+												<div class="form-group">
+													<label>Situa&#231;&#227;o</label> 
+													<select name="situacao"
+														id="field_situacao"
+														ng-model="situacao"
+														class="form-control">
+														<option value=""></option>
+														<option ng-repeat="sit in listaSituacoes" value="{{sit.id}}">{{sit.descricao}}</option>
+													</select>
+												</div>
+											</div>
+											<div class="col-lg-2">
+												<div class="form-group">
+													<label>Colaborador</label> 
+													<select name="colaborador"
+														id="field_colaborador"
+														ng-model="colaborador"
+														class="form-control">
+														<option value=""></option>
+														<option ng-repeat="col in listaColaboradores" value="{{col.id}}">{{col.nome}}</option>
+													</select>
+												</div>
+											</div>
+											<div class="col-lg-4">
+												<br>
+												<button type="button" class="btn btn-primary" ng-click="buscarSolicitacoes()" ng-disabled="desabilitar">Aplicar filtro</button>
+												<button type="button" class="btn btn-default" ng-click="limparFiltros()" ng-disabled="desabilitar">Limpar</button>
+											</div>
+										</div>
+										
+										<div class="row">
+											<div class="col-lg-2">
+												<div class="form-group">
+													<div class="checkbox">
+		                                                <label>
+		                                                    <input type="checkbox" ng-model="naoatendidas">Somente n&#227;o atendidas
+		                                                </label>
+		                                            </div>
+												</div>
+											</div>
+										</div>
+										
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="row">
+						<div class="col-lg-12">
+							<p>
+								<a class="btn btn-success btn-primary btn-sm" href="" ng-click="novo()" sentinela="solicitacao.nova">
+	                               <i class="fa fa-plus"></i> Nova Solicita&#231;&#227;o
+	                           	</a>
+	                    	</p>
+						</div>
+					</div>
+					
+					<div class="row">
+						<div class="col-lg-12">
+						
+							<div class="panel panel-default">
+								<div class="panel-body">
+										
+									<div class="dataTable_wrapper">
+					
+										<!-- Tabela de Solicitações -->
+										<table datatable="ng" id="table-solic" class="table table-striped table-bordered table-condensed dt-responsive nowrap">
+											<thead>
+												<tr>
+													<th>A&#231;&#245;es</th>
+													<th>Titulo</th>
+													<th>Solicitado em</th>
+													<th>Execu&#231;&#227;o</th>
+													<th>Colaborador</th>
+													<th>Situa&#231;&#227;o</th>
+												</tr>
+											</thead>
+				
+											<tbody>
+												<tr ng-repeat="solic in listaSolicitacoes">
+													<td align="center" width="65px">
+														<div class="btn-group dropdown">
+															<button type="button" class="btn btn-info btn-xs" data-toggle="dropdown">
+																<i class="fa fa-list"></i>
+															</button>
+															<ul class="dropdown-menu">
+																<li sentinela="solicitacao.visualizar">
+																	<a href="" ng-click="visualizar(solic.id)">
+																		<i class="fa fa-eye fa-fw"></i> Visualizar
+																	</a>
+																</li>
+																<li sentinela="solicitacao.editar">
+																	<a href="" ng-click="editar(solic.id)">
+																		<i class="fa fa-pencil"></i> Editar
+																	</a>
+																</li>
+																<li sentinela="solicitacao.excluir">
+																	<a href="" ng-click="selecionar(solic.id)" data-toggle="modal" data-target="#myModal">
+																		<i class="fa fa-trash-o"></i> Excluir
+																	</a>
+																</li>
+															</ul>
+														</div>
+													</td>
+													<td>{{solic.titulo}}</td>
+													<td width="65px">{{solic.dataHoraSolicitacao | date:'dd/MM/yyyy HH:mm'}}</td>
+													<td width="65px">
+														<div class="progress progress-striped active">
+					                                        <div ng-class="classeTarefa(solic.execucao)" role="progressbar" aria-valuenow="{{solic.execucao}}" aria-valuemin="0" aria-valuemax="100" style="width: {{solic.execucao}}%"> 
+					                                        </div>
+				                                    	</div>
+													</td>
+													<td>{{solic.colaborador}}</td>
+													<td width="180px">{{solic.situacao}}</td>
+												</tr>
+											</tbody>
+										</table>
+										
+										<!-- Modal de exclusão -->
+				                        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				                            <div class="modal-dialog">
+				                                <div class="modal-content">
+				                                    <div class="modal-header">
+				                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				                                        <h4 class="modal-title" id="myModalLabel">Exclus&#227;o</h4>
+				                                    </div>
+				                                    <div class="modal-body">
+				                                        Deseja excluir a solicita&#231;&#227;o <strong>{{idSelecionado}}</strong>?
+				                                    </div>
+				                                    <div class="modal-footer">
+				                                        <button type="button" class="btn btn-default" data-dismiss="modal">Retornar</button>
+				                                        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="excluir()">Confirmar Exclus&#227;o</button>
+				                                    </div>
+				                                </div>
+				                                <!-- /.modal-content -->
+				                            </div>
+				                            <!-- /.modal-dialog -->
+				                        </div>
+					                        
+									</div>
+								</div>
+							</div>
+						
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- Page-Level Demo Scripts - Tables - Use for reference -->
+    <script>
+	    $(document).ready(function() {
+	    	$('#table-solic').DataTable({
+	        	responsive: true
+	        });
+	    });
+    </script>
+	
+	
+	

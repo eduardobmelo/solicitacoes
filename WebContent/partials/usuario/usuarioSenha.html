@@ -1,0 +1,75 @@
+<div class="row">
+	<div class="col-lg-6">
+		<br>
+		<div class="panel panel-default">
+
+			<div class="panel-heading">
+				<strong>Alterar Senha</strong>
+			</div>
+			<!-- /.panel-heading -->
+
+			<div class="panel-body">
+
+				<form name="usuarioForm" novalidate>
+					<!-- Mensagens de erro -->
+					<div ng-show="temErro" class="alert alert-danger">
+						<span>{{mensagem}}</span>
+					</div>
+					
+					<!-- Mensagens de sucesso -->
+					<div ng-show="sucesso" class="alert alert-success">
+						<span>Opera&#231;&#227;o realizada com sucesso.</span>
+					</div>
+
+					<!-- Tab panes -->
+					<div class="tab-content">
+					
+						<div class="col-lg-12">
+							<div class="form-group">
+								<label>Senha</label>
+								<input name="senhaAtual"
+									id="field_senhaAtual"
+									type="password"
+									required
+									ng-model="senhaAtual"
+									ng-disabled="desabilitar"
+									class="form-control">
+							</div>
+						</div>
+							
+						<div class="col-lg-12">
+							<div class="form-group">
+								<label>Nova Senha</label>
+								<input name="senha"
+									id="field_senha"
+									type="password"
+									required
+									ng-model="senha"
+									ng-disabled="desabilitar"
+									class="form-control">
+							</div>
+						</div>
+						
+						<div class="col-lg-12">
+							<div class="form-group">
+								<label>Confirmar Nova Senha</label>
+								<input name="senha2"
+									id="field_senha2"
+									type="password"
+									required
+									ng-model="senha2"
+									ng-disabled="desabilitar"
+									class="form-control">
+							</div>
+						</div>
+						
+						<button type="button" class="btn btn-success" ng-click="salvar()" ng-disabled="desabilitar">Salvar</button>
+					</div>
+				</form>
+			</div>
+			<!-- /.panel-body -->
+		</div>
+		<!-- /.panel -->
+	</div>
+	<!-- /.col-lg-6 -->
+</div>

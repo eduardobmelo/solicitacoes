@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+	version="3.1">
+
+	<display-name>solicitacoes</display-name>
+
+	<welcome-file-list>
+		<welcome-file>partials/principal.html</welcome-file>
+	</welcome-file-list>
+
+	<filter>
+		<filter-name>FiltroAutenticacao</filter-name>
+		<filter-class>br.com.audivisa.solserv.control.seguranca.FiltroAutenticacaoRest</filter-class>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>FiltroAutenticacao</filter-name>
+		<url-pattern>/services/cep/*</url-pattern>
+	</filter-mapping>
+	
+	<filter-mapping>
+		<filter-name>FiltroAutenticacao</filter-name>
+		<url-pattern>/services/cliente/*</url-pattern>
+	</filter-mapping>
+	
+	<filter-mapping>
+		<filter-name>FiltroAutenticacao</filter-name>
+		<url-pattern>/services/colaborador/crud/*</url-pattern>
+	</filter-mapping>
+	
+	<filter-mapping>
+		<filter-name>FiltroAutenticacao</filter-name>
+		<url-pattern>/services/colaborador/todos/*</url-pattern>
+	</filter-mapping>
+	
+	<filter-mapping>
+		<filter-name>FiltroAutenticacao</filter-name>
+		<url-pattern>/services/contatoCliente/*</url-pattern>
+	</filter-mapping>
+	
+	<filter-mapping>
+		<filter-name>FiltroAutenticacao</filter-name>
+		<url-pattern>/services/dashboard/*</url-pattern>
+	</filter-mapping>
+	
+	<filter-mapping>
+		<filter-name>FiltroAutenticacao</filter-name>
+		<url-pattern>/services/estado/*</url-pattern>
+	</filter-mapping>
+	
+	<filter-mapping>
+		<filter-name>FiltroAutenticacao</filter-name>
+		<url-pattern>/services/municipio/*</url-pattern>
+	</filter-mapping>
+	
+	<filter-mapping>
+		<filter-name>FiltroAutenticacao</filter-name>
+		<url-pattern>/services/objetoSeguranca/*</url-pattern>
+	</filter-mapping>
+	
+	<filter-mapping>
+		<filter-name>FiltroAutenticacao</filter-name>
+		<url-pattern>/services/papelSeguranca/*</url-pattern>
+	</filter-mapping>
+	
+	<filter-mapping>
+		<filter-name>FiltroAutenticacao</filter-name>
+		<url-pattern>/services/prioridade/*</url-pattern>
+	</filter-mapping>
+	
+<!-- 	<filter-mapping> -->
+<!-- 		<filter-name>FiltroAutenticacao</filter-name> -->
+<!-- 		<url-pattern>/services/relatorios/*</url-pattern> -->
+<!-- 	</filter-mapping> -->
+	
+	<filter-mapping>
+		<filter-name>FiltroAutenticacao</filter-name>
+		<url-pattern>/services/seguranca/permissoesUsuario</url-pattern>
+	</filter-mapping>
+	
+	<filter-mapping>
+		<filter-name>FiltroAutenticacao</filter-name>
+		<url-pattern>/services/situacaoSolicitacao/*</url-pattern>
+	</filter-mapping>
+	
+	<filter-mapping>
+		<filter-name>FiltroAutenticacao</filter-name>
+		<url-pattern>/services/solicitacao/*</url-pattern>
+	</filter-mapping>
+	
+	<filter-mapping>
+		<filter-name>FiltroAutenticacao</filter-name>
+		<url-pattern>/services/usuario/*</url-pattern>
+	</filter-mapping>
+
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>URLs seguras</web-resource-name>
+			<url-pattern>/*</url-pattern>
+		</web-resource-collection>
+		<user-data-constraint>
+			<transport-guarantee>CONFIDENTIAL</transport-guarantee>
+		</user-data-constraint>
+	</security-constraint>
+
+</web-app>

@@ -1,0 +1,201 @@
+<div class="row">
+	<div class="col-lg-7">
+		<br>
+		<div class="panel panel-default">
+
+			<div class="panel-heading">
+				<strong>Usu&#225;rio</strong>
+			</div>
+			<!-- /.panel-heading -->
+
+			<div class="panel-body">
+
+				<form name="usuarioForm" novalidate>
+					<!-- Mensagens de erro -->
+					<div ng-show="temErro" class="alert alert-danger">
+						<span>{{mensagem}}</span>
+					</div>
+					
+					<!-- Mensagens de sucesso -->
+					<div ng-show="sucesso" class="alert alert-success">
+						<span>Opera&#231;&#227;o realizada com sucesso.</span>
+					</div>
+					
+					<!-- Nav tabs -->
+					<ul class="nav nav-tabs">
+						<li class="active"><a data-target="#abaDados" data-toggle="tab">Dados B&#225;sicos</a></li>
+						<li><a data-target="#abaPermissoes" data-toggle="tab">Permiss&#245;es</a></li>
+					</ul>
+
+					<!-- Tab panes -->
+					<div class="tab-content">
+
+						<!-- Aba Dados Basicos -->
+						<div class="tab-pane fade in active" id="abaDados">
+							<div class="row">
+								<div class="col-lg-12">
+									<div class="form-group">
+										<br>
+										<input name="encerrado" 
+											id="field_encerrado"
+											type="checkbox"
+											ng-model="usuario.facebook"
+											ng-disabled="desabilitar">
+										<label>Autenticar via Facebook</label>
+									</div>
+								</div>
+							</div>
+							
+							<div class="row">
+								<div class="col-lg-12">
+									<div class="form-group">
+										<label>Nome do usu&#225;rio</label>
+										<input name="login"
+											id="field_login"
+											type="text"
+											required
+											ng-model="usuario.login"
+											ng-disabled="desabilitar"
+											class="form-control">
+									</div>
+								</div>
+							</div>
+							
+							<div class="row">
+								<div class="col-lg-6">
+									<div class="form-group">
+										<label>Senha</label>
+										<input name="senha"
+											id="field_senha"
+											type="password"
+											required
+											ng-model="usuario.senha"
+											ng-disabled="desabilitarSenha"
+											class="form-control">
+									</div>
+								</div>
+								
+								<div class="col-lg-6" style="margin-top: 30px">
+									<span >
+										<a href="" ng-click="habilitarSenha()" class="active" ng-show="!desabilitarAlterarSenha && !desabilitar">
+											<i class="fa fa-pencil"></i> Alterar Senha
+										</a>
+										<a href="" ng-click="salvarSenha()" class="active" ng-show="!desabilitarSalvarSenha">
+											<i class="fa fa-pencil"></i> Salvar Senha
+										</a>
+									</span>
+								</div>
+							</div>
+							
+							<div class="row">
+								<div class="col-lg-6">
+									<div class="form-group">
+										<label>Confirmar Senha</label>
+										<input name="senha2"
+											id="field_senha2"
+											type="password"
+											required
+											ng-model="usuario.senha2"
+											ng-disabled="desabilitarSenha"
+											class="form-control">
+									</div>
+								</div>
+							</div>
+							
+							<div class="row">
+								<div class="col-lg-12">
+									<div class="form-group">
+										<label>Colaborador</label> 
+										<select name="colaborador"
+											id="field_colaborador"
+											ng-model="usuario.colaborador"
+											ng-disabled="desabilitar"
+											class="form-control"
+											ng-options="col as col.nome for col in listaColaboradores track by col.id"
+											required>
+										</select>
+									</div>
+								</div>
+							</div>
+							
+							<div class="row">
+								<div class="col-lg-6">
+									<div class="form-group">
+										<label>Data Cadastro</label>
+										<input name="dataCadastro"
+											id="field_dataCadastro"
+											type="date" 
+											placeholder="dd/MM/yyyy" 
+											name="dataCadastro" 
+											ng-model="usuario.dataCadastro"
+											ng-disabled="desabilitar"
+											required
+											class="form-control">
+									</div>
+								</div>
+								
+								<div class="col-lg-6">
+									<div class="form-group">
+										<label>Situa&#231;&#227;o</label>
+										<select name="situacaoUsuario"
+											id="field_situacaoUsuario"
+											ng-model="usuario.situacao"
+											ng-disabled="desabilitar"
+											class="form-control" 
+											required>
+											<option value=""></option>
+											<option ng-repeat="sit in listaSituacao" value="{{sit.nome}}">{{sit.nome}}</option>
+										</select>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+						<!-- Aba Permissoes -->
+						<div class="tab-pane fade" id="abaPermissoes">
+							<div class="dataTable_wrapper">
+								<br>
+							
+								<!-- Tabela de papeis e permissoes -->
+								<table datatable="ng" id="table-permissoes" class="table table-striped table-bordered table-condensed table-responsive nowrap">
+									<thead>
+										<tr>
+											<th>Permiss&#227;o</th>
+											<th>Papel</th>
+										</tr>
+									</thead>
+		
+									<tbody>
+										<tr ng-repeat="perm in usuario.papeis" class="odd gradeX">
+											<td>
+												<input name="encerrado" 
+													id="field_encerrado"
+													type="checkbox"
+													ng-model="perm.permissao"
+													ng-change="permitir(perm)"
+													ng-disabled="desabilitar">
+												
+											</td>
+											<td>{{perm.papel.nome}}</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+						
+						<!-- Botoes do CRUD Cliente -->
+						
+							<button type="button" class="btn btn-success" ng-click="salvar(false)" ng-disabled="desabilitar">Salvar</button>
+							<button type="button" class="btn btn-primary" ng-click="salvar(true)" ng-disabled="desabilitar">Salvar e retornar para lista</button>
+							<button type="button" class="btn btn-default" ng-click="retornar()">Retornar</button>
+						
+						
+					</div>
+				</form>
+			</div>
+			<!-- /.panel-body -->
+		</div>
+		<!-- /.panel -->
+	</div>
+	<!-- /.col-lg-6 -->
+</div>

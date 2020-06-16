@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt" ng-app="segApp">
+
+<head> 
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <base href="/solicitacoes/">
+
+    <title>Solicitações de Serviços</title>
+    
+    <!-- jQuery JS -->
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    
+    <!-- AngularJS -->
+    <script src="js/libs/angular.min.js"></script>
+	<script src="js/libs/angular-route.min.js"></script>
+	<script src="js/libs/angular-resource.min.js"></script>
+	<script src="js/libs/angular-cookies.min.js"></script>
+	<script src="js/libs/angular-utf8-base64.min.js"></script>
+
+	
+	<!-- Bibliotecas AngulasJS da aplicacao -->
+	<script src="js/appSeg.js"></script>
+	<script src="js/segServices.js"></script>
+	<script src="js/segControllers.js"></script>
+	
+    <!-- Bootstrap Core CSS -->
+    <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+  
+    <!-- Custom CSS -->
+    <link href="dist/css/sb-admin-2.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container" ng-controller="LoginCtrl">
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                <div class="login-panel panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"><strong>Identifique-se</strong></h3>
+                    </div>
+                    <div class="panel-body">
+                        <form role="form">
+                            <fieldset>
+                            	<img src="img/LogoAudivisa_Full.jpg" height="130px" width="130px" 
+                            			style="display: block; margin: auto;">
+                            	<div class="row">
+                            		<br>
+                            	</div>
+                            	
+                            	<div ng-show="temErro" class="alert alert-danger">
+									<span>{{mensagem}}</span>
+								</div>
+								
+                                <div class="form-group">
+                                    <input class="form-control" placeholder="Usuário" name="email" ng-model="nomeUsuario">
+                                </div>
+                                <div class="form-group">
+                                    <input class="form-control" placeholder="Senha" name="password" type="password" ng-model="senha">
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input name="remember" type="checkbox" ng-model="relembrar">Lembrar-me
+                                    </label>
+                                </div>
+                                <!-- Change this to a button or input when using this as a form -->
+                                <button type="button" class="btn btn-lg btn-success btn-block" ng-click="submit()">Login</button>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div ng-include="'partials/loading.html'">
+    	</div>
+    </div>
+    
+    <!-- Bootstrap Core JavaScript -->
+    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,114 @@
+    
+	<div class="row">
+		<div class="col-lg-12">
+			<div ng-include="'partials/loading.html'">
+    		</div>
+			<br>
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<strong>Lista de Colaboradores</strong>
+				</div>
+
+				<div class="panel-body">
+					<!-- Mensagens de sucesso -->
+					<div ng-show="sucesso" class="alert alert-success">
+						<span>Opera&#231;&#227;o realizada com sucesso.</span>
+					</div>
+					
+					<p>
+						<button type="button" class="btn btn-success btn-circle btn-sm" ng-click="novoColaborador()" 
+							title="Novo Colaborador" sentinela="colaborador.nova">
+							<i class="fa fa-plus"></i>
+						</button>
+					</p>
+
+					<div class="dataTable_wrapper">
+	
+						<!-- Tabela de Colaboradores -->
+						<table datatable="ng" id="table-colaboradores" class="table table-striped table-bordered table-condensed dt-responsive nowrap">
+							<thead>
+								<tr>
+									<th style="width: 60px;">A&#231;&#245;es</th>
+									<th style="width: 20px;">#</th>
+									<th>Nome</th>
+									<th>Telefone</th>
+									<th>Situa&#231;&#227;o</th>
+								</tr>
+							</thead>
+
+							<tbody>
+								<tr ng-repeat="colaborador in colaboradoresList" class="odd gradeX">
+									<td>
+										<div class="btn-group dropdown">
+											<button type="button" class="btn btn-info btn-xs" data-toggle="dropdown">
+												<i class="fa fa-list"></i>
+											</button>
+											<ul class="dropdown-menu">
+												<li sentinela="colaborador.visualizar">
+													<a href="" ng-click="visualizarColaborador(colaborador.id)">
+														<i class="fa fa-eye fa-fw"></i> Visualizar
+													</a>
+												</li>
+												<li sentinela="colaborador.editar">
+													<a href="" ng-click="editarColaborador(colaborador.id)">
+														<i class="fa fa-pencil"></i> Editar
+													</a>
+												</li>
+												<li sentinela="colaborador.excluir">
+													<a href="" ng-click="colaboradorSelecionado(colaborador.nome, colaborador.id)" data-toggle="modal" data-target="#myModal">
+														<i class="fa fa-trash-o"></i> Excluir
+													</a>
+												</li>
+											</ul>
+										</div>
+									</td>
+									<td>{{colaborador.id}}</td>
+									<td>{{colaborador.nome}}</td>
+									<td>{{colaborador.telefoneCelular}}</td>
+									<td>{{colaborador.situacao}}</td>
+								</tr>
+							</tbody>
+						</table>
+						
+						<!-- Modal de exclusão -->
+                        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                        <h4 class="modal-title" id="myModalLabel">Exclus&#227;o</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        Deseja excluir o colaborador <strong>{{nomeSelecionado}}</strong>?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Retornar</button>
+                                        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="excluirColaborador()">Confirmar Exclus&#227;o</button>
+                                    </div>
+                                </div>
+                                <!-- /.modal-content -->
+                            </div>
+                            <!-- /.modal-dialog -->
+                        </div>
+	                        
+					</div>
+				</div>
+				<!-- /.panel-body -->
+			</div>
+			<!-- /.panel -->
+		</div>
+		<!-- /.col-lg-12 -->
+	</div>
+	<!-- /.row -->
+	
+	<!-- Page-Level Demo Scripts - Tables - Use for reference -->
+    <script>
+	    $(document).ready(function() {
+	    	$('#table-colaboradores').DataTable({
+	        	responsive: true
+	        });
+	    });
+    </script>
+	
+	
+	

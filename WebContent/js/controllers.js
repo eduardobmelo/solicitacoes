@@ -771,6 +771,8 @@ solservControllers.controller('PrincipalCtrl', ['$scope', '$location', '$interva
 	$scope.nomeSelecionado = null;
 	$scope.idSelecionado = null;
 	$scope.sucesso = false;
+	$scope.temErro = false;
+	$scope.mensagem = false
 	$scope.colaboradoresList = null;
 	$scope.loading = true;
 	
@@ -803,6 +805,9 @@ solservControllers.controller('PrincipalCtrl', ['$scope', '$location', '$interva
 			}, 
 			function error(errorResponse) {
 				console.log("Error:" + JSON.stringify(errorResponse));
+				$scope.mensagem = errorResponse.data.title + ': ' + errorResponse.data.detail;
+				$scope.sucesso = false;
+				$scope.temErro = true;
 				return;
 			});
     };
@@ -812,6 +817,28 @@ solservControllers.controller('PrincipalCtrl', ['$scope', '$location', '$interva
         $scope.nomeSelecionado = nome;
         $scope.idSelecionado = id;
     };
+    
+    $scope.somenteAtivos = function () {
+    	
+    	  // Declare variables
+    	  var filter, table, tr, td, i, txtValue;
+    	  filter = "Ativo"
+    	  table = document.getElementById("table-colaboradores");
+    	  tr = table.getElementsByTagName("tr");
+
+    	  // Loop through all table rows, and hide those who don't match the search query
+    	  for (i = 0; i < tr.length; i++) {
+    	    td = tr[i].getElementsByTagName("td")[4];
+    	    if (td) {
+    	      txtValue = td.textContent || td.innerText;
+    	      if (txtValue.indexOf(filter) > -1) {
+    	        tr[i].style.display = "";
+    	      } else {
+    	        tr[i].style.display = "none";
+    	      }
+    	    }
+    	  }
+    	};
     
     function buscarColaboradores() {
     	ColaboradorListService.get(
@@ -823,6 +850,9 @@ solservControllers.controller('PrincipalCtrl', ['$scope', '$location', '$interva
 			function error(errorResponse) {
 				$scope.loading = false;
 				console.log("Error:" + JSON.stringify(errorResponse));
+				$scope.mensagem = errorResponse.status + ' - ' + errorResponse.statusText;
+				$scope.temErro = true;
+				$scope.sucesso = false;
 				return;
 			}
     	);

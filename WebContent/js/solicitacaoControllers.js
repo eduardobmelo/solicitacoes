@@ -140,6 +140,8 @@ solicitacaoControllers.controller('SolicitacoesCtrl', [ '$rootScope', '$scope', 
     	
     	setFilterService(nomeFiltroColaborador, "");
 		setFilterService(nomeFiltroSituacao, "");
+		
+		$scope.buscarSolicitacoes();
     };
     
     // Aciona a busca da lista de solicitações.
@@ -354,6 +356,10 @@ solicitacaoControllers.controller('SolicitacoesCtrl', [ '$rootScope', '$scope', 
 	
 	function verificarCampos() {
 		$scope.mensagem = "";
+		
+		if ($scope.solicitacaoForm.titulo.$error.required) {
+			$scope.mensagem += "Titulo é requerido. ";
+		}
 		
 		if ($scope.solicitacaoForm.cliente.$error.required) {
 			$scope.mensagem += "Cliente é requerido. ";

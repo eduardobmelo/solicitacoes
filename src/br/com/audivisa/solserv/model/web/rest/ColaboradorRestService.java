@@ -21,6 +21,7 @@ import org.jboss.resteasy.plugins.providers.multipart.InputPart;
 import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
 import br.com.audivisa.solserv.model.dao.ColaboradorDAO;
 import br.com.audivisa.solserv.model.entity.Colaborador;
+import br.com.audivisa.solserv.model.entity.ErrorResponseBody;
 
 @Path("/colaborador") 
 public class ColaboradorRestService {
@@ -108,7 +109,9 @@ public class ColaboradorRestService {
 			colaboradorService.excluir(id);
 			return Response.ok().build();
 		} catch(Exception e) {
-			return Response.status(Response.Status.NOT_FOUND).entity("Erro ao excluir o colaborador.").build();
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(
+				new ErrorResponseBody("", "Erro ao excluir o colaborador", 500, e.getCause().getCause().toString(), "") 
+			).build();
 		} 
 	}
 	

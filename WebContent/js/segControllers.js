@@ -18,6 +18,16 @@ segControllers.controller('LoginCtrl', [ '$scope', '$location', 'Login', 'setCre
 		$scope.nomeUsuario = getUsername();
 	}
 	
+	$scope.mostrarSenha = function() {
+		var x = document.getElementById("pwd");
+		
+		if (x.type === "password") {
+			x.type = "text";
+		} else {
+			x.type = "password";
+		}
+	};
+	
 	$scope.submit = function() {
 		$scope.temErro = false;
 		$scope.mensagem = "";

@@ -91,9 +91,7 @@ public class RelatorioSolicitacaoPorColaborador {
 	}
 	
 	private DynamicReport buildReport(String title) throws Exception {
-		
-		URL r = getClass().getClassLoader().getResource("/images/LogoAudivisa_Full.jpg");
-		String path = r.getPath();
+		String path = "images/LogoAudivisa_Full.jpg";
 		
 		path = URLDecoder.decode(path, "UTF-8");
 		

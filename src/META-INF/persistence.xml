@@ -25,7 +25,7 @@ xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org
 			<property name="hibernate.connection.driver_class" value="org.postgresql.Driver" />
 			<property name="hibernate.connection.username" value="postgres" />
 			<property name="hibernate.connection.password" value="postaudivisa" />
-			<property name="hibernate.connection.url" value="jdbc:postgresql://instance1.cubujgweyvhi.us-east-1.rds.amazonaws.com:5432/DB_SOLIC" /> 
+			<property name="hibernate.connection.url" value="jdbc:postgresql://database-1.ceofty9kfkc5.us-east-1.rds.amazonaws.com:5432/DB_SOLIC" />
 			<!-- <property name="hibernate.connection.url" value="jdbc:postgresql://localhost:5432/DB_SOLIC" />  -->
 			<property name="hibernate.connection.autocommit" value="true" />
 			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />
